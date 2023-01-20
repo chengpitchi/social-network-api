@@ -79,35 +79,34 @@ module.exports = {
         )
         .catch((err) => res.status(500).json(err));
     },
-/*
-    // Adds a tag to an application. This method is unique in that we add the entire body of the tag rather than the ID with the mongodb $addToSet operator.
-    addTag(req, res) {
-      Application.findOneAndUpdate(
-        { _id: req.params.applicationId },
-        { $addToSet: { tags: req.body } },
+    // Adds a reaction to a thought. 
+    addReaction(req, res) {
+      Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $addToSet: { reactions: req.body } },
         { runValidators: true, new: true }
       )
-        .then((application) =>
-          !application
-            ? res.status(404).json({ message: 'No application with this id!' })
-            : res.json(application)
+        .then((thought) =>
+          !thought
+            ? res.status(404).json({ message: 'No thought with this id!' })
+            : res.json(thought)
         )
         .catch((err) => res.status(500).json(err));
     },
-    // Remove application tag. This method finds the application based on ID. It then updates the tags array associated with the app in question by removing it's tagId from the tags array.
-    removeTag(req, res) {
-      Application.findOneAndUpdate(
-        { _id: req.params.applicationId },
-        { $pull: { tags: { tagId: req.params.tagId } } },
+    // Remove reaction from a thought. 
+    removeReaction(req, res) {
+      Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $pull: { reactions: { reactionId: req.params.reactionId } } },
         { runValidators: true, new: true }
       )
-        .then((application) =>
-          !application
-            ? res.status(404).json({ message: 'No application with this id!' })
-            : res.json(application)
+        .then((thought) =>
+          !thought
+            ? res.status(404).json({ message: 'No thought with this id!' })
+            : res.json(thought)
         )
         .catch((err) => res.status(500).json(err));
     },
-*/
+
 };
   
