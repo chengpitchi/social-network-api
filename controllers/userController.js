@@ -11,6 +11,8 @@ module.exports = {
     getSingleUser(req, res) {
       User.findOne({ _id: req.params.userId })
         .select('-__v')
+        .populate('thoughts')
+        .populate('friends') 
         .then((user) =>
           !user
             ? res.status(404).json({ message: 'No user with that ID' })
@@ -23,6 +25,23 @@ module.exports = {
       User.create(req.body)
         .then((user) => res.json(user))
         .catch((err) => res.status(500).json(err));
+    },
+    // update an exising user by id 
+    updateUser(req, res) {
+      User.findOneAndUpdate(
+        { _id: req.params.userId },
+        { $set: req.body },
+        { runValidators: true, new: true }
+      )
+        .then((user) =>
+          !user
+            ? res.status(404).json({ message: 'No user with this id!' })
+            : res.json(user)
+        )
+        .catch((err) => {
+          console.log(err);
+          res.status(500).json(err);
+        });
     },
     // Delete a user and associated apps
     deleteUser(req, res) {
