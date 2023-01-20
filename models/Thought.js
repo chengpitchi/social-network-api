@@ -10,7 +10,19 @@ const reactionSchema = new Schema(
                         maxLength: 280}, 
         username: { type: String, 
                     required: true }, 
-        createdAt: { type: Date, default: Date.now },        
+        createdAt: { type: Date, 
+                      default: Date.now, 
+                      // getter method to format date
+                      get: (date) => {
+                        if (date) 
+                        return `${new Date(date).toLocaleDateString('en-US')} ${new Date(date).toLocaleTimeString('en-US')}`;
+                      } },        
+    }, 
+    {
+      timestamps: true, 
+      toJSON: {
+        getters: true,
+      },
     }
 ); 
 
@@ -21,12 +33,20 @@ const thoughtSchema = new Schema(
                     required: true, 
                     minLength: 1, 
                     maxLength: 280},
-    createdAt: { type: Date, default: Date.now },
+    createdAt: { type: Date, 
+                  default: Date.now, 
+                  // getter method to format date
+                  get: (date) => {
+                    if (date) 
+                    return `${new Date(date).toLocaleDateString('en-US')} ${new Date(date).toLocaleTimeString('en-US')}`;
+                  } },
     username: { type: String, required: true }, 
     reactions: [reactionSchema],
   },
   {
+    timestamp: true, 
     toJSON: {
+      getters: true, 
       virtuals: true,
     },
     id: false,
