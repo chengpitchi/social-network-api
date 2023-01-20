@@ -15,7 +15,7 @@ const reactionSchema = new Schema(
                       // getter method to format date
                       get: (date) => {
                         if (date) 
-                        return `${new Date(date).toLocaleDateString('en-US')} ${new Date(date).toLocaleTimeString('en-US')}`;
+                        return `${new Date(date).toLocaleDateString('en-AU')} ${new Date(date).toLocaleTimeString('en-AU')}`;
                       } },        
     }, 
     {
@@ -38,7 +38,7 @@ const thoughtSchema = new Schema(
                   // getter method to format date
                   get: (date) => {
                     if (date) 
-                    return `${new Date(date).toLocaleDateString('en-US')} ${new Date(date).toLocaleTimeString('en-US')}`;
+                    return `${new Date(date).toLocaleDateString('en-AU')} ${new Date(date).toLocaleTimeString('en-AU')}`;
                   } },
     username: { type: String, required: true }, 
     reactions: [reactionSchema],
